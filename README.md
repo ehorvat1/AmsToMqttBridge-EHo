@@ -1,5 +1,5 @@
 # AMS2MQTTBridge-EHo
-This is a fork from amsreader-firmware (old name: AmsToMqttBridge) amsreader-firmware based on Rev 2.2.21 from here: https://github.com/UtilitechAS/amsreader-firmware
+This is basically a fork from amsreader-firmware (old name: AmsToMqttBridge) amsreader-firmware based on Rev 2.2.21 from here: https://github.com/UtilitechAS/amsreader-firmware
 
 Because of memory limitations for ESP8266 which made OTA firmware update impossible I had to delete the automatic firmware detection/download/consent. So this firmware can only be updated via status web page (Upload Firmware) or by using direct serial connection to ESP device.
 
