@@ -4,15 +4,16 @@ This is basically a fork from amsreader-firmware (old name: AmsToMqttBridge) ams
 Because of memory limitations for ESP8266 which made OTA firmware update impossible I had to delete the automatic firmware detection/download/consent. So this firmware can only be updated via status web page (Upload Firmware) or by using direct serial connection to ESP device.
 
 Now features:
-1) All functions from amsreader-firmware Rev 2.2.21
-2) Added a 10 Minute plot (120 point resolution, 1 pt each 5 sec)
-3) Added a 60 Minute plot (120 point resolution, 1 pt each 30 sec)
-4) Added a section to show last counter values since last payment. Data to be entered in configuration.
-5) Exported energy is shown in green color on hour, day and month plot.
-6) Automatic Wifi swapping if configured WLAN does not connect. See below for more info.
-7) Disabled automatic FW updates
-8) Some minor color changes on dashboard gauges
-9) Translation to German language
+1) All functions from amsreader-firmware Rev 2.2.21 (Except automatic FW updates which would overwrite my modifications)
+2) Fixed price (but its more a refund) for exported energy 
+3) Added a 10 Minute plot (120 point resolution, 1 pt each 5 sec)
+4) Added a 60 Minute plot (120 point resolution, 1 pt each 30 sec)
+5) Added a section to show "last" counter values since last payment. Data to be entered in configuration.
+6) Exported energy is shown in green color on hour, day and month plot.
+7) Automatic Wifi swapping if configured WLAN does not connect. See below for more info.
+8) Disabled Consent message (since no data is sent anywhere) and automatic FW updates
+9) Some minor color changes on dashboard gauges
+10) Translation to German language
 
 
 ## Wifi function (STA mode or AP mode):
@@ -22,6 +23,23 @@ If the configured Wifi (should be your home Wifi) can not be reached within app.
 Software will try to re-connect to the configured Wifi if no client is connected to this AP for 90 seconds. So if one is connected to AP Wifi the device will stay in AP mode. Please mind that most devices will do a automatic reconnect to the AP Wifi if the Wifi connection "amsreader-abcd" was once used. This could prevent the ESP32 from automatically reconnecting to defined STA Wifi.
 
 "AP" button still is an option to swap between configured WLAN and an Wifi Access point called "amsreader-abcd". The AP button must be pressed longer than 5 seconds to swap Wifi mode.
+
+## Additional MQTT items (in raw MQTT mode only):
+	 - Publish topic + "/realtime/import/cost_kwh"
+	 - Publish topic + "/realtime/import/last_counter_value"
+	 - Publish topic + "/realtime/import/last_counter_info"
+	 - Publish topic + "/realtime/import/last_counter_diff"
+	 - Publish topic + "/realtime/import/last_counter_costs"
+	 - Publish topic + "/realtime/export/refund_kwh"
+	 - Publish topic + "/realtime/export/last_counter_value"
+	 - Publish topic + "/realtime/export/last_counter_info"
+	 - Publish topic + "/realtime/export/last_counter_diff"
+	 - Publish topic + "/realtime/export/last_counter_refund"
+
+So for example, if you set the "Publish topic" in MQTT configuration to "smartmeter" :
+          -the actual power used is published with full topic: smartmeter/meter/import/active
+          -the entered fixed price per kWh is published with full topic: smartmeter/realtime/import/cost_kwh
+
 
 
 ## Original README.md from amsreader-firmware:
