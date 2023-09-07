@@ -15,6 +15,7 @@ Now features:
 9) Some minor color changes on dashboard gauges
 10) Translation to German language
 
+There is a English Version as well, please go to "english" branch or to the Release version ending with "-en"
 
 ## Wifi function (STA mode or AP mode):
 The option on configuration page in section Wifi called:  "Start a Wifi AP on home Wifi connection problem" will enable this:
