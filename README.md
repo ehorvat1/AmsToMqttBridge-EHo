@@ -39,6 +39,8 @@ Software will try to re-connect to the configured Wifi if no client is connected
 So for example, if you set the "Publish topic" in MQTT configuration to "smartmeter" :
           -the actual power used is published with full topic: smartmeter/meter/import/active
           -the entered fixed price per kWh is published with full topic: smartmeter/realtime/import/cost_kwh
+	  
+## Dashboard website:
 
 <img src="dashboard.png">
 
