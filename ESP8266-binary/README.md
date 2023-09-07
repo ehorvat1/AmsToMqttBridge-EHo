@@ -7,7 +7,7 @@ esptool.py --chip esp8266 --port <port> --baud 115200 --before default_reset --a
 
 So in Linux this command will flash firmware.bin to esp8266: 
 
-esptool.py --chip esp8266 --port /dev/ttyUSB0 --baud 115200 --before default_reset --after hard_reset write_flash 0x0 firmware-de.bin
+esptool.py --chip esp8266 --port /dev/ttyUSB0 --baud 115200 --before default_reset --after hard_reset write_flash 0x0 firmware-en.bin
 
 # Erase flash
 If the device stops responding or unpredictable behaviour, a flash erase might be needed before flashing. Read more here
