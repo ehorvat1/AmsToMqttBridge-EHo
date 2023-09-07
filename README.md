@@ -13,7 +13,7 @@ Now features:
 7) Automatic Wifi swapping if configured WLAN does not connect. See below for more info.
 8) Disabled Consent message (since no data is sent anywhere) and automatic FW updates
 9) Some minor color changes on dashboard gauges
-10) Translation to German language
+
 
 There is a German Version as well, please go to "main" branch or to the Release version ending with "-ge" . Link: https://github.com/ehorvat1/AmsToMqttBridge-EHo/tree/main
 
