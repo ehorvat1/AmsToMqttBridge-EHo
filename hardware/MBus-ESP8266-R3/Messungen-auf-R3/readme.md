@@ -2,8 +2,11 @@
 1) Signal am MBus Stecker (unbelastet):
 <img src="Kaifa-MBus-unbelastet.png">
 
-2) Signal an LED vom Optokoppler (mit 1100 Ohm gesamt Vorwiderstand):
+2a) Signal an LED vom Optokoppler (mit 1100 Ohm gesamt Vorwiderstand):
 <img src="Kaifa-MBus-1100ohm_gemessen-an-optokLED.png">
+
+2b) Signal an LED vom Optokoppler mit 100kOhm parallel zur Optokoppler LED (mit 1100 Ohm gesamt Vorwiderstand):
+<img src="Kaifa-MBus-1100ohm_gemessen-an-optokLED-mit100k-amOPTOled.png">
 
 3) Signal an 100 Ohm Widerstand vor Optokoppler (mit 1100 Ohm gesamt Vorwiderstand):
 <img src="Kaifa-MBus-1100ohm_gemessen-an-100ohm.png">
