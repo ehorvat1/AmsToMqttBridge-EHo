@@ -156,7 +156,7 @@
             Installierte Version: 2.2.21-EHo-ge
         </div>        
         <div class="my-2"><!-- EHorvat new info-->
-            Datum der Firmware: 9. Aug. 2023
+            Datum der Firmware: 16. Jan. 2024
         </div>
 <!--  EHorvat disabled consent stuff  
         {#if sysinfo.upgrade.t && sysinfo.upgrade.t != sysinfo.version}
