@@ -213,7 +213,7 @@ bool AmsConfiguration::getMeterConfig(MeterConfig& config) {
 		EEPROM.begin(EEPROM_SIZE);
 		EEPROM.get(CONFIG_METER_START, config);
 		EEPROM.end();
-		if(config.bufferSize < 1 || config.bufferSize > 64) config.bufferSize = 2; //EHorvat default Serial buffer size to 128
+		config.bufferSize = 2; //EHorvat default Serial buffer size to 128
 		return true;
 	} else {
 		clearMeter(config);
@@ -232,7 +232,7 @@ bool AmsConfiguration::setMeterConfig(MeterConfig& config) {
 		meterChanged |= config.productionCapacity != existing.productionCapacity;
 		meterChanged |= strcmp((char*) config.encryptionKey, (char*) existing.encryptionKey);
 		meterChanged |= strcmp((char*) config.authenticationKey, (char*) existing.authenticationKey);
-		meterChanged |= config.bufferSize != existing.bufferSize;
+//		meterChanged |= config.bufferSize != existing.bufferSize;   //EHorvat ignore a change in buffer size
 	} else {
 		meterChanged = true;
 	}
