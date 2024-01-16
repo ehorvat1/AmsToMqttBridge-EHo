@@ -756,7 +756,7 @@ void handleNtpChange() {
 
 void handleSystem(unsigned long now) {
 	unsigned long start, end;
-	if(now - lastSysupdate > 60000) {
+	if(now - lastSysupdate > 10000) {  // Changed to 10000 EHorvat (was 60000)
 		start = millis();
 		if(mqtt != NULL && mqttHandler != NULL && WiFi.getMode() != WIFI_AP && WiFi.status() == WL_CONNECTED && mqtt->connected() && !topic.isEmpty()) {
 			mqttHandler->publishSystem(&hw, eapi, &ea);
@@ -777,16 +777,19 @@ void handleSystem(unsigned long now) {
 		}
 		#endif
 	}
+/*  EHorvat... disable change in buffer size
 
 	// After one hour, adjust buffer size to match the largest payload
 	if(!maxDetectPayloadDetectDone && now > 3600000) {
 		if(maxDetectedPayloadSize * 1.5 > meterConfig.bufferSize * 64) {
+			meterConfig.bufferSize = min((double) 64, ceil((maxDetectedPayloadSize * 1.5) / 64));
 			meterConfig.bufferSize = min((double) 64, ceil((maxDetectedPayloadSize * 1.5) / 64));
 			debugI_P(PSTR("Increasing RX buffer to %d bytes"), meterConfig.bufferSize * 64);
 			config.setMeterConfig(meterConfig);
 		}
 		maxDetectPayloadDetectDone = true;
 	}
+	*/
 }
 
 void handleTemperature(unsigned long now) {
@@ -912,9 +915,9 @@ void rxerr(int err) {
 			debugE_P(PSTR("Serial buffer overflow"));
 			rxBufferErrors++;
 			if(rxBufferErrors > 3 && meterConfig.bufferSize < 64) {
-				meterConfig.bufferSize += 2;
-				debugI_P(PSTR("Increasing RX buffer to %d bytes"), meterConfig.bufferSize * 64);
-				config.setMeterConfig(meterConfig);
+				meterConfig.bufferSize = 2; //EHorvat ... serial buffer size should stay at 2 (= 128 bytes)
+				debugI_P(PSTR("Serial RX buffer size is %d bytes"), meterConfig.bufferSize * 64); //EHorvat ... correct the text 
+//				config.setMeterConfig(meterConfig);  //EHorvat ... no need to store to EEPROM
 				rxBufferErrors = 0;
 			}
 			break;
@@ -975,7 +978,7 @@ void setupHanPort(GpioConfig& gpioConfig, uint32_t baud, uint8_t parityOrdinal, 
 		return;
 	}
 
-	if(meterConfig.bufferSize < 1) meterConfig.bufferSize = 1;
+	if(meterConfig.bufferSize < 1) meterConfig.bufferSize = 2;  //EHorvat ... serial buffer size should stay at 2 (= 128 bytes)
 
 	if(hwSerial != NULL) {
 		debugD_P(PSTR("Hardware serial"));
@@ -999,7 +1002,8 @@ void setupHanPort(GpioConfig& gpioConfig, uint32_t baud, uint8_t parityOrdinal, 
 				serialConfig = SERIAL_8E1;
 				break;
 		}
-		if(meterConfig.bufferSize < 4) meterConfig.bufferSize = 4; // 64 bytes (1) is default for software serial, 256 bytes (4) for hardware
+//		if(meterConfig.bufferSize < 4) meterConfig.bufferSize = 4; // 64 bytes (1) is default for software serial, 256 bytes (4) for hardware
+		if(meterConfig.bufferSize < 1) meterConfig.bufferSize = 2; // EHorvat....buffer Size always to 2 (= 128 bytes)
 
 		hwSerial->setRxBufferSize(64 * meterConfig.bufferSize);
 		#if defined(CONFIG_IDF_TARGET_ESP32S2) || defined(CONFIG_IDF_TARGET_ESP32C3)
